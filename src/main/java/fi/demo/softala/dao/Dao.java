@@ -24,18 +24,20 @@ public class Dao {
 			students = jdbcTemplate.query(sql, rm);
 			return students;
 		} catch (DataAccessException e) {
+			System.out.println("Error "+e);
 			return null;
 		}
 		
 	}
 	
 	public Student findStudentByNumber(String number){
-		String sql = "SELECT * FROM Student WHERE StudentNumber ="+number;
+		String sql = "SELECT * FROM Student WHERE StudentNumber = '"+ number+"'";
 		RowMapper<Student> rm = new StudentRowMapper();
 		Student student = jdbcTemplate.queryForObject(sql, rm);
 		try {
 			return student;
-		} catch (Exception e) {
+		} catch (DataAccessException e) {
+			System.out.println("Error "+e);
 			return null;
 		}
 	}
